@@ -1,51 +1,45 @@
-# PROJECT_CONTEXT.md — عازب | AZIB
+# PROJECT_CONTEXT — عازب | AZIB
 
-> Living document. Read this before doing any work on AZIB.
+## 1. هوية المشروع
+- **الاسم:** عازب | AZIB
+- **النوع:** تطبيق خيري/اجتماعي غير ربحي (Non-Profit).
+- **المستخدمون:** مستفيدون، متبرعون، متطوعون، مراجعون بشريون، إداريون، مدققون.
+- **الطبيعة:** غير حكومي، غير تجاري، غير تعارفي، لا نشر لبيانات المستفيدين، لا مدفوعات حقيقية في وضع العرض التجريبي.
+- **اللغة الافتراضية:** العربية (ar)، اتجاه RTL إلزامي.
+- **المنصات المستهدفة:** iOS, Android (عبر Expo).
 
-## 1. What AZIB is
-AZIB (عازب) is a **non-profit social impact platform** based in Sana'a, Yemen, whose mission is to **facilitate marriage for eligible youth** by:
-- reducing the financial burden of marriage,
-- connecting beneficiaries with trusted partners, donors, and volunteers,
-- providing education, tools, and community initiatives,
-- protecting the privacy and dignity of every beneficiary.
+## 2. الالتزامات المعمارية غير القابلة للتفاوض
+1. **Demo-First:** يجب أن يعمل التطبيق بالكامل في `Demo Mode` قبل أي ربط خارجي.
+2. **Provider Abstraction:** كل خدمة خارجية تُعرَّف كواجهة (Interface) مع `Mock Adapter` افتراضي.
+3. **مسار الترحيل:** Mock → Supabase → خادم مستقل، دون تغيير في طبقة العرض.
+4. **RTL & Arabic-First:** كل تصميم يبدأ RTL، وكل نص يبدأ عربياً.
+5. **حماية المستفيد:** لا قوائم عامة، لا كشف هوية، لا وصول للمتطوعين إلى المستندات.
+6. **قرار بشري فوق الآلي:** التقييم الآلي استشاري فقط، والقرار النهائي بشري موثَّق.
+7. **لا مدفوعات حقيقية:** كل تدفقات التبرع في هذه المرحلة `DEMO` صريحة.
+8. **فاخر لكن وظيفي:** الجمال يخدم الوضوح ولا يعيقه.
 
-## 2. What AZIB is NOT
-- It is **NOT a dating app**.
-- It does **NOT** expose beneficiary personal data publicly.
-- It does **NOT** run real financial transactions in Demo Mode.
-- It does **NOT** depend on paid third-party services during initial development.
-- It is **NOT** a matchmaking or romance product. There is no public browsing of individuals.
+## 3. الجمهور والأدوار
+- زائر (Guest)
+- مستفيد (Beneficiary)
+- متبرع (Donor)
+- متطوع (Volunteer)
+- مراجع بشري (Reviewer)
+- مدير (Admin)
+- مدير أعلى (Super Admin)
+- مدقق (Auditor)
+- وكيل ميداني (Field Agent)
 
-## 3. Primary constraints (non-negotiable)
-1. **Non-profit first**: no monetization, no ads, no paid dependencies required for the initial release.
-2. **Arabic-first, RTL by default**: every screen is designed in Arabic and mirrored correctly. LTR is a secondary locale.
-3. **Currency**: Yemeni Rial (YER) everywhere amounts appear.
-4. **Privacy-by-design**: beneficiaries (marriage assistance applicants, financial aid recipients, etc.) are never exposed publicly.
-5. **Demo Mode first**: the app must fully function against deterministic mock data before any backend exists.
-6. **Provider abstraction**: every external service must sit behind an interface with a Mock Adapter.
-7. **Auditability**: sensitive operations (approvals, payouts in future, document verification) must be logged.
+## 4. خارج النطاق صراحةً (Out of Scope – Phase 01)
+- مدفوعات حقيقية أو بوابات دفع فعلية.
+- تعارف/زواج فردي/محادثات خاصة بين الجنسين.
+- نشر بيانات مستفيدين بأي شكل عام (قوائم، معرض، منشور).
+- تكاملات شبكية إلزامية (كل التكامل اختياري ويُحاكى عبر Mock).
+- تحليلات تتبّع شخصية أو SDKات إعلانية.
 
-## 4. Geographic and cultural starting point
-- Starting city: **Sana'a**.
-- Language: **Arabic (ar-YE)**, RTL.
-- Cultural sensitivity is a product requirement, not a nice-to-have.
-
-## 5. Current phase
-- **Phase 01 — Product Requirements & System Architecture** (this phase).
-- No application code is written yet. Only documentation and architectural decisions.
-
-## 6. Document map (source of truth)
-| Concern | Document |
-|---|---|
-| Product requirements | `docs/PRD.md` |
-| System architecture | `docs/ARCHITECTURE.md` |
-| All modules & boundaries | `docs/MODULE_INVENTORY.md` |
-| Roles & permissions | `docs/ROLES_PERMISSIONS.md` |
-| Demo Mode rules | `docs/DEMO_MODE_STRATEGY.md` |
-| Provider interfaces | `docs/PROVIDER_ABSTRACTIONS.md` |
-| Data domains | `docs/DATA_DOMAIN_MAP.md` |
-| Decisions | `docs/decisions/*.md` |
-| Progress | `DEVELOPMENT_PROGRESS.md` |
-
-## 7. How to use this document
-Any engineer, designer, or reviewer must read `PROJECT_CONTEXT.md` and the relevant document from the map above **before** proposing changes. Any change to scope must be reflected in `docs/PRD.md` and logged in `DEVELOPMENT_PROGRESS.md`.
+## 5. مرجع الحالة
+- هذه الوثيقة تُقرأ مع: `docs/PRODUCT_REQUIREMENTS.md`, `docs/ARCHITECTURE.md`,
+  `docs/MODULES.md`, `docs/ROLES_AND_PERMISSIONS.md`, `docs/USER_FLOWS.md`,
+  `docs/DEMO_MODE.md`, `docs/PRIVACY_AND_SECURITY.md`,
+  `docs/INTEGRATION_ABSTRACTION.md`, `docs/RISKS_AND_ASSUMPTIONS.md`.
+- أي تعديل على قرار معماري هنا يجب تسجيله في `DEVELOPMENT_PROGRESS.md`
+  مع سبب التغيير وتاريخه.
