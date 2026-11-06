@@ -43,3 +43,41 @@
   `docs/INTEGRATION_ABSTRACTION.md`, `docs/RISKS_AND_ASSUMPTIONS.md`.
 - أي تعديل على قرار معماري هنا يجب تسجيله في `DEVELOPMENT_PROGRESS.md`
   مع سبب التغيير وتاريخه.
+
+## 6. القرارات التقنية والإصدارات (Phase 02)
+
+### 6.1 الحزم الأساسية
+- **Expo SDK 52** مع **React Native 0.76** (New Architecture مفعّلة).
+- **مدير الحزم:** pnpm (إلزامي).
+- **TypeScript:** `strict: true` + `noUnusedLocals` + `noImplicitReturns`.
+- **التوجيه:** `expo-router ~4.0` بنمط ملفات داخل `app/`.
+- **الحالة:** Zustand (Demo/App stores) + TanStack Query (لاحقاً).
+- **النماذج:** React Hook Form + Zod.
+- **الترجمة:** i18next + react-i18next + expo-localization.
+- **RTL:** `I18nManager.forceRTL(true)` + `expo-localization`، العربية افتراضية.
+
+### 6.2 إصدارات مثبتة (مرجعية)
+| الحزمة | الإصدار |
+|---|---|
+| expo | ~52.0.0 |
+| expo-router | ~4.0.0 |
+| react-native | 0.76.5 |
+| react-native-reanimated | ~3.16.1 |
+| react-native-gesture-handler | ~2.20.0 |
+| react-native-screens | ~4.4.0 |
+| react-native-safe-area-context | ~4.12.0 |
+| expo-secure-store | ~14.0.0 |
+| expo-localization | ~16.0.0 |
+| expo-image | ~2.0.0 |
+| @react-native-async-storage/async-storage | 2.1.0 |
+
+### 6.3 قرارات إضافية
+- **Demo Mode:** مفعّل افتراضياً (`EXPO_PUBLIC_DEMO_MODE=true`)، ويُخزَّن في `@demo/demo_mode`.
+- **Provider Abstraction:** 10 واجهات، كلها لها Mock Adapter، ولا اتصال خارجي في Demo.
+- **Integration Registry:** 10 مزودات مسجلة بحالة `mock`، وقابلة للترقية إلى `configured/connected` لاحقاً.
+- **الأمان:** لا أسرار في الكود، `service_role` ممنوع، `SUPABASE_ANON_KEY` مسموح فقط مع RLS.
+- **عدم وجود نصوص عربية في المكونات:** كل النصوص عبر i18n.
+
+### 6.4 قيود مثبتة
+- لا مدفوعات حقيقية: `PaymentProvider.mode` ثابت على `'mock'`.
+- لا شبكة إلزامية: كل شيء يعمل offline في Demo.
